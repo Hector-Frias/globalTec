@@ -7,12 +7,16 @@ import {
 import { Reflector } from '@nestjs/core';
 import { PERMISSIONS_KEY } from '../decorators/permissions.decorator';
 import { ProfilePermissions } from '../profile-permissions';
+import { UsersService } from 'src/modules/usersProfiles/users/services/users/users.service'; // Asegúrate de tener acceso al servicio de usuarios
 
 @Injectable()
 export class PermissionsGuard implements CanActivate {
-  constructor(private reflector: Reflector) {}
+  constructor(
+    private reflector: Reflector,
+    private readonly usersService: UsersService, // Inyectamos el servicio de usuarios
+  ) {}
 
-  canActivate(context: ExecutionContext): boolean {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const requiredPermissions = this.reflector.getAllAndOverride<string[]>(
       PERMISSIONS_KEY,
       [context.getHandler(), context.getClass()],
@@ -21,10 +25,23 @@ export class PermissionsGuard implements CanActivate {
     if (!requiredPermissions) return true;
 
     const request = context.switchToHttp().getRequest();
+
     const user = request.user;
-    const profileCode = user.userProfile?.profileCode;
+    console.log(user, '4534534543');
+
+    const userprofileId = user.userprofileId; // Asegúrate de que tienes el userProfileId
+
+    // Obtener el perfil del usuario a partir del userProfileId
+    const profile = await this.usersService.getProfileById(userprofileId);
+
+    if (!profile) {
+      throw new ForbiddenException('Perfil de usuario no encontrado');
+    }
+
+    const profileCode = profile.profileCode; // Obtén el profileCode del perfil
 
     const userPermissions = ProfilePermissions[profileCode] || [];
+    console.log(userPermissions, 'userPermissions');
 
     const hasPermission = requiredPermissions.every((p) =>
       userPermissions.includes(p),

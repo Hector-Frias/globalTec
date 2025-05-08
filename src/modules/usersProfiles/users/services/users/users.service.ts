@@ -4,13 +4,22 @@ import { UpdateUserDto } from '../../dto/update-user.dto';
 import { User } from '../../entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { Profile } from '../../entities/profile.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    @InjectRepository(Profile)
+    private readonly profileRepository: Repository<Profile>,
   ) {}
+
+  async getProfileById(userprofileId: string): Promise<Profile | null> {
+    return this.profileRepository.findOne({
+      where: { profileId: +userprofileId },
+    });
+  }
 
   async create(createUserDto: CreateUserDto) {
     const userExists = await this.userRepository.findOne({

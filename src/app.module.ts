@@ -9,6 +9,7 @@ import { databaseProviders } from './providers/database.providers';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './modules/usersProfiles/users/entities/user.entity';
 import { DataSource } from 'typeorm';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -27,13 +28,10 @@ import { DataSource } from 'typeorm';
       // synchronize: true,
     }),
     UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
   exports: [],
 })
-export class AppModule {
-  constructor(private readonly dataSource: DataSource) {
-    console.log('✅ Estado de conexión:', dataSource.isInitialized);
-  }
-}
+export class AppModule {}
