@@ -6,18 +6,19 @@ import { AuthController } from './auth.controllers';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { User } from 'src/modules/usersProfiles/users/entities/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { GlobalTexts } from 'src/data/constants/texts';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
     PassportModule,
     JwtModule.register({
-      secret: 'jwt_secret', // Reemplazalo con tu variable de entorno si es necesario
+      secret: 'jwt_secret',
       signOptions: { expiresIn: '1h' },
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
-  exports: [AuthService], // Si otros módulos lo usan
+  providers: [AuthService, JwtStrategy, GlobalTexts],
+  exports: [AuthService],
 })
 export class AuthModule {}

@@ -27,7 +27,7 @@ export class UsersService {
     });
   }
 
-  async create(createUserDto: CreateUserDto) {
+  async createUser(createUserDto: CreateUserDto) {
     const userExists = await this.userRepository.findOne({
       where: { userEmail: createUserDto.userEmail },
     });
@@ -133,6 +133,12 @@ export class UsersService {
     try {
       await this.userRepository.delete(id);
       return { response: this.globalTexts.removalSuccessful };
-    } catch (error) {}
+    } catch (error) {
+      this.logger.error(this.globalTexts.anErrorOccurred, error.stack);
+      this.httpExceptionService.httpException(
+        error.message,
+        HttpStatus.NOT_FOUND,
+      );
+    }
   }
 }

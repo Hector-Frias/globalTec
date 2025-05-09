@@ -5,7 +5,7 @@ import { GlobalTexts } from 'src/data/constants/texts';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { User } from '../../entities/user.entity';
 import { Profile } from '../../entities/profile.entity';
-import { HttpStatus } from '@nestjs/common';
+import { HttpStatus, Logger, NotFoundException } from '@nestjs/common';
 
 describe('UsersService', () => {
   let service: UsersService;
@@ -13,11 +13,13 @@ describe('UsersService', () => {
   let userRepository: any;
   let httpExceptionService: any;
   let globalTexts: any;
+  let logger: any;
 
   const mockUserRepository = {
     find: jest.fn(),
     findOne: jest.fn(),
     save: jest.fn(),
+    delete: jest.fn(),
     // add more methods if you need them
   };
 
@@ -30,7 +32,10 @@ describe('UsersService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         UsersService,
-        HttpExceptionService,
+        {
+          provide: HttpExceptionService,
+          useValue: { httpException: jest.fn() }, // Proporciona el mock directamente aquí
+        },
         {
           provide: getRepositoryToken(Profile),
           useValue: mockProfileRepository,
@@ -43,6 +48,10 @@ describe('UsersService', () => {
           provide: GlobalTexts,
           useValue: {},
         },
+        {
+          provide: Logger,
+          useValue: { error: jest.fn() }, // Mockea el método error del Logger
+        },
       ],
     }).compile();
 
@@ -50,6 +59,7 @@ describe('UsersService', () => {
     userRepository = module.get(getRepositoryToken(User));
     httpExceptionService = module.get(HttpExceptionService);
     globalTexts = module.get(GlobalTexts);
+    logger = module.get(Logger);
   });
 
   profileRepository = {
@@ -74,6 +84,7 @@ describe('UsersService', () => {
     });
   });
 
+  //Create user  ______________________________________
   let createUserDto = {
     userEmail: 'test@example.com',
     userName: 'John Doe',
@@ -87,18 +98,12 @@ describe('UsersService', () => {
       userEmail: 'test@example.com',
     });
 
-    // Mockear la función httpException para que no lance una excepción real
+    // Mock the httpException function so that it doesn't throw a real exception
     const mockHttpException = jest
       .spyOn(httpExceptionService, 'httpException')
       .mockImplementation(() => {});
-
-    // Llama al método create y espera que se ejecute
-    await service.create(createUserDto);
-
-    // Verifica que no se haya guardado el usuario porque ya existe
+    await service.createUser(createUserDto);
     expect(mockUserRepository.save).not.toHaveBeenCalled();
-
-    // Verifica que se haya llamado a httpException con el mensaje adecuado
     expect(mockHttpException).toHaveBeenCalledWith(
       globalTexts.existingElement,
       HttpStatus.CONFLICT,
@@ -109,13 +114,47 @@ describe('UsersService', () => {
     // Pretends that the user does not exist
     mockUserRepository.findOne.mockResolvedValue(null);
     mockUserRepository.save.mockResolvedValue(createUserDto);
-
-    const result = await service.create(createUserDto);
-
+    const result = await service.createUser(createUserDto);
     //Verify that save has been called
     expect(mockUserRepository.save).toHaveBeenCalledWith(createUserDto);
     expect(result).toEqual({
       response: globalTexts.elementCreatedSuccessfully,
     });
+  });
+
+  //delet users ________________________________________
+
+  it('should handle the case where userRepository.delete resolves with no affected rows', async () => {
+    const userId = 1;
+    mockUserRepository.findOne.mockResolvedValue({});
+    mockUserRepository.delete.mockResolvedValue({ affected: 0 });
+    globalTexts.removalSuccessful = undefined;
+    const result = await service.deleteUser(userId);
+    expect(result).toEqual({ response: undefined });
+  });
+
+  //list by ID ____________________________
+
+  it('should throw NotFoundException if listUserById throws it', async () => {
+    const userId = 1;
+    mockUserRepository.findOne.mockRejectedValue(
+      new NotFoundException(globalTexts.elementNotFound),
+    );
+    await expect(service.deleteUser(userId)).rejects.toThrow(NotFoundException);
+    expect(userRepository.delete).toHaveBeenCalledWith(userId);
+  });
+
+  it('should return a user if found by ID', async () => {
+    const mockUser = { userId: 1, userName: 'Test User' };
+    mockUserRepository.findOne.mockResolvedValue(mockUser);
+
+    const result = await service.listUserById(1);
+
+    expect(result).toEqual(mockUser);
+    expect(userRepository.findOne).toHaveBeenCalledWith({
+      where: { userId: 1 },
+    });
+    expect(httpExceptionService.httpException).not.toHaveBeenCalled();
+    expect(logger.error).not.toHaveBeenCalled();
   });
 });

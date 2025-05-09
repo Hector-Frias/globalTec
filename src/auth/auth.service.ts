@@ -4,29 +4,31 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from 'src/modules/usersProfiles/users/entities/user.entity';
 import { ProfilePermissions } from './profile-permissions';
+import { GlobalTexts } from 'src/data/constants/texts';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
     private jwtService: JwtService,
+    public globalTexts: GlobalTexts,
   ) {}
 
-  // Iniciar sesión basándonos en el email del usuario
+  // Log in based on the user's email
   async login(userEmail: string) {
     const user = await this.userRepository.findOne({
       where: { userEmail },
-      relations: ['userProfile'], // Incluir el perfil del usuario
+      relations: ['userProfile'],
     });
 
     if (!user) {
-      throw new Error('Usuario no encontrado');
+      throw new Error(this.globalTexts.userNotFound);
     }
 
-    // Obtener el perfil y permisos asociados al perfil del usuario
+    //Get the profile and permissions associated with the user profile
     const profileCode = user.userProfile.profileCode;
 
-    // Generar un JWT con el perfil y permisos
+    //Generate a JWT with the profile and permissions
     const payload = {
       sub: user.userId,
       email: user.userEmail,
