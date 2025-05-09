@@ -22,7 +22,6 @@ export class AuthService {
     if (!user) {
       throw new Error('Usuario no encontrado');
     }
-    console.log(user, '4885743875874387');
 
     // Obtener el perfil y permisos asociados al perfil del usuario
     const profileCode = user.userProfile.profileCode;

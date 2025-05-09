@@ -1,0 +1,21 @@
+services:
+  print-ticket-back:
+    container_name: globalBack
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - '7008:3000'
+    networks:
+      global_net_docker:
+        aliases:
+          - global-back
+
+networks:
+  global_net_docker:
+    name: global_net
+    driver: bridge
+    external: true

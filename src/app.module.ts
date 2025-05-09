@@ -11,6 +11,7 @@ import { User } from './modules/usersProfiles/users/entities/user.entity';
 import { DataSource } from 'typeorm';
 import { AuthModule } from './auth/auth.module';
 import { GlobalTexts } from './data/constants/texts';
+import { Profile } from './modules/usersProfiles/users/entities/profile.entity';
 
 @Module({
   imports: [
@@ -19,14 +20,12 @@ import { GlobalTexts } from './data/constants/texts';
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: process.env.HOST,
       port: 3306,
-      username: 'root',
-      password: 'Llampa20',
-      database: 'globaltec',
-      entities: [User],
-      autoLoadEntities: true,
-      // synchronize: true,
+      username: process.env.USER_NAME,
+      password: process.env.PASSWORD,
+      database: process.env.DATA_BASE,
+      entities: [User, Profile],
     }),
     UsersModule,
     AuthModule,

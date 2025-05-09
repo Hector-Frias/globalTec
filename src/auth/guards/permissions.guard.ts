@@ -27,7 +27,6 @@ export class PermissionsGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
 
     const user = request.user;
-    console.log(user, '4534534543');
 
     const userprofileId = user.userprofileId; // Asegúrate de que tienes el userProfileId
 
@@ -41,7 +40,6 @@ export class PermissionsGuard implements CanActivate {
     const profileCode = profile.profileCode; // Obtén el profileCode del perfil
 
     const userPermissions = ProfilePermissions[profileCode] || [];
-    console.log(userPermissions, 'userPermissions');
 
     const hasPermission = requiredPermissions.every((p) =>
       userPermissions.includes(p),

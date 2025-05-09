@@ -12,12 +12,9 @@ export const databaseProviders = [
         username: 'root',
         password: 'Llampa20',
         database: 'globaltec',
-        // entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-        // synchronize: true, // ⚠️ Solo en desarrollo (puede borrar datos)
       });
 
       await dataSource.initialize();
-      console.log(dataSource, 'dfsfsd');
 
       return dataSource;
     },
