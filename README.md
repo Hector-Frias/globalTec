@@ -8,15 +8,17 @@
 
 1. [General description](#general)
 2. [Project structure](#structure)
-3. [Download and installation](#installation)
-4. [Useful commands](#usefulCommands)
-5. [Running the app](#runningTheApp)
-6. [Unit tests](#tests)
-7. [Endpoints](#endpoint)
-8. [Documentation](#documentation) - [Diagram of sequence](#DiagramOfSequence)
-9. [Swagger](#swagger)
+3. [Clone the project](#clone)
+4. [Download and installation](#installation)
+5. [Useful commands](#usefulCommands)
+6. [Running the app](#runningTheApp)
+7. [Unit tests](#tests)
+8. [Endpoints](#endpoint)
+9. [Documentation](#documentation)
+10. [Swagger](#swagger)
+11. [Docker](#docker)
 
-   <a name="general"></a>
+<a name="general"></a>
 
 ## General description
 
@@ -34,6 +36,17 @@ Modules
 - models: responsible for defining the structure of the database tables.
 - Services: definition of services for obtaining data.
 - Dto: responsible for transferring data.
+- Auth (Authentication and Permissions):
+
+  - Guard: Protects endpoints using authentication strategies.
+
+  - Strategies: Implements JWT authentication.
+
+  - Decorators: Defines user roles and permissions.
+
+  - Services: Generates and validates tokens.
+
+  - Controller: Endpoints for login and authentication management.
 
 Providers
 
@@ -43,9 +56,15 @@ Services
 
 - Interfaces: definition of services for data management.
 
-Config
+<a name="clone"></a>
 
-- App settings
+## Clone the project
+
+To clone the project to your local machine, open your terminal and navigate to the directory where you want to store the project. Then, run the following command:
+
+```
+ git clone  https://github.com/Hector-Frias/globalTec.git
+```
 
 <a name="installation"></a>
 
@@ -162,14 +181,6 @@ You can find different information in the documentation section located in this 
 'src/documentation/'
 ```
 
-<a name="DiagramOfSequence"></a>
-
-## Diagram Of sequence
-
-- [List all users](src/documentation/listAllUsers.jpg)
-
-  <a name="swagger"></a>
-
 ## Swagger
 
 Project to process the information sent from the frontend and return a response.
@@ -187,7 +198,7 @@ This API allows you to perform CRUD operations.
 ## Api Url
 
 ```
-'url/agroApi'
+'url/docApi'
 ```
 
 ## Activation
@@ -197,4 +208,26 @@ Modify the variable in the .env file.
 
 ```
 ENVIRONMENT = 'development' | 'production' | 'testing'
+```
+
+<a name="docker"></a>
+
+## Docker
+
+This project includes Docker configuration files to make it easy to run the backend in an isolated environment.
+
+- Dockerfile → Defines the container image with all necessary dependencies.
+
+- docker-compose.yml → Orchestrate the services.
+
+To run the application inside a container:
+
+```
+docker-compose up -d
+```
+
+To stop the containers:
+
+```
+docker-compose down
 ```
