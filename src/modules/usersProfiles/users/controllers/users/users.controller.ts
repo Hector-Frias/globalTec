@@ -25,7 +25,7 @@ export class UsersController {
   @Post()
   @Permissions('create_user')
   create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+    return this.usersService.createUser(createUserDto);
   }
 
   @Get()

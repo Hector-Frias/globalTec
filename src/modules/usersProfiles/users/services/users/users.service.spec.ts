@@ -102,7 +102,7 @@ describe('UsersService', () => {
     const mockHttpException = jest
       .spyOn(httpExceptionService, 'httpException')
       .mockImplementation(() => {});
-    await service.create(createUserDto);
+    await service.createUser(createUserDto);
     expect(mockUserRepository.save).not.toHaveBeenCalled();
     expect(mockHttpException).toHaveBeenCalledWith(
       globalTexts.existingElement,
@@ -114,7 +114,7 @@ describe('UsersService', () => {
     // Pretends that the user does not exist
     mockUserRepository.findOne.mockResolvedValue(null);
     mockUserRepository.save.mockResolvedValue(createUserDto);
-    const result = await service.create(createUserDto);
+    const result = await service.createUser(createUserDto);
     //Verify that save has been called
     expect(mockUserRepository.save).toHaveBeenCalledWith(createUserDto);
     expect(result).toEqual({
