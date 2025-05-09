@@ -9,7 +9,6 @@ describe('HttpExceptionService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         HttpExceptionService,
-
         {
           provide: GlobalTexts,
           useValue: {},

@@ -18,7 +18,7 @@ async function bootstrap() {
   const environment = process.env.ENVIRONMENT || 'development';
   if (environment !== 'production') {
     const config = new DocumentBuilder()
-      .setTitle('AGROSTOCK API')
+      .setTitle('GLOBAL API')
       .setDescription('Endpoints')
       .setVersion('1.0')
       .addBearerAuth()

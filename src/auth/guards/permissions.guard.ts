@@ -7,13 +7,15 @@ import {
 import { Reflector } from '@nestjs/core';
 import { PERMISSIONS_KEY } from '../decorators/permissions.decorator';
 import { ProfilePermissions } from '../profile-permissions';
-import { UsersService } from 'src/modules/usersProfiles/users/services/users/users.service'; // Asegúrate de tener acceso al servicio de usuarios
+import { UsersService } from 'src/modules/usersProfiles/users/services/users/users.service';
+import { GlobalTexts } from 'src/data/constants/texts';
 
 @Injectable()
 export class PermissionsGuard implements CanActivate {
   constructor(
     private reflector: Reflector,
-    private readonly usersService: UsersService, // Inyectamos el servicio de usuarios
+    private readonly usersService: UsersService,
+    public globalTexts: GlobalTexts,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -28,16 +30,16 @@ export class PermissionsGuard implements CanActivate {
 
     const user = request.user;
 
-    const userprofileId = user.userprofileId; // Asegúrate de que tienes el userProfileId
+    const userprofileId = user.userprofileId; // we make sure we have the userProfileId
 
-    // Obtener el perfil del usuario a partir del userProfileId
+    // We obtain the user profile from the userProfileId
     const profile = await this.usersService.getProfileById(userprofileId);
 
     if (!profile) {
-      throw new ForbiddenException('Perfil de usuario no encontrado');
+      throw new ForbiddenException(this.globalTexts.userProfileNotFound);
     }
 
-    const profileCode = profile.profileCode; // Obtén el profileCode del perfil
+    const profileCode = profile.profileCode; //Get the profileCode of the profile
 
     const userPermissions = ProfilePermissions[profileCode] || [];
 
@@ -46,7 +48,9 @@ export class PermissionsGuard implements CanActivate {
     );
 
     if (!hasPermission) {
-      throw new ForbiddenException('No tienes permisos para esta acción');
+      throw new ForbiddenException(
+        this.globalTexts.youDoNotHavePermissionForThisAction,
+      );
     }
 
     return true;

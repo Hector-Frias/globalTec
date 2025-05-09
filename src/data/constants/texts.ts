@@ -6,4 +6,8 @@ export class GlobalTexts {
   public idDoesNotExist = 'Elemento inexistente';
   public updateSuccessful = 'Actualización con éxito';
   public removalSuccessful = 'Eliminación con  éxito';
+  public youDoNotHavePermissionForThisAction =
+    'No tienes permisos para esta acción';
+  public userProfileNotFound = 'Perfil de usuario no encontrado';
+  public userNotFound = 'Usuario no encontrado';
 }

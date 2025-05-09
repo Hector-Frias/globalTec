@@ -1,0 +1,364 @@
+{
+	"info": {
+		"_postman_id": "86dbd06b-cb09-4fd1-96b4-45824f42a9d5",
+		"name": "globalTec",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22044444"
+	},
+	"item": [
+		{
+			"name": "module usersProfiles",
+			"item": [
+				{
+					"name": "list",
+					"item": [
+						{
+							"name": "list_users",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoiaGVjdG9yQGV4YW1wbGUuY29tIiwidXNlcnByb2ZpbGVJZCI6MSwicHJvZmlsZUNvZGUiOiJBRE1JTiIsInBlcm1pc3Npb25zIjpbImNyZWF0ZV91c2VyIiwiZGVsZXRlX3VzZXIiLCJyZWFkX3VzZXIiLCJlZGl0X3VzZXIiXSwiaWF0IjoxNzQ2NzU0MDk5LCJleHAiOjE3NDY3NTc2OTl9.v5GyrcIRSRHXu5t6TFLJiLOpYWZPZ2Us7qMOHM-5Dps",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoiaGVjdG9yQGV4YW1wbGUuY29tIiwicHJvZmlsZUNvZGUiOiJBRE1JTiIsInBlcm1pc3Npb25zIjpbImNyZWF0ZV91c2VyIiwiZGVsZXRlX3VzZXIiLCJyZWFkX3VzZXIiXSwiaWF0IjoxNzQ2NzE2MTY0LCJleHAiOjE3NDY3MTk3NjR9.5gO_bBkEoc8O633azS-npAst0xlb2xXkOc_0eqjBoD8",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:3000/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "list_profiles",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoiaGVjdG9yQGV4YW1wbGUuY29tIiwidXNlcnByb2ZpbGVJZCI6MSwicHJvZmlsZUNvZGUiOiJBRE1JTiIsInBlcm1pc3Npb25zIjpbImNyZWF0ZV91c2VyIiwiZGVsZXRlX3VzZXIiLCJyZWFkX3VzZXIiXSwiaWF0IjoxNzQ2NzM2MTIyLCJleHAiOjE3NDY3Mzk3MjJ9.QcUAJL44mhbrY8CQNqFywyMOiR_H8hpDE3xm35bAwnY",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/profiles",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"profiles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "list usersProfiles",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/users/usersProfiles?searchText",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users",
+										"usersProfiles"
+									],
+									"query": [
+										{
+											"key": "searchText",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "create",
+					"item": [
+						{
+							"name": "create_user",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoiaGVjdG9yQGV4YW1wbGUuY29tIiwidXNlcnByb2ZpbGVJZCI6MSwicHJvZmlsZUNvZGUiOiJBRE1JTiIsInBlcm1pc3Npb25zIjpbImNyZWF0ZV91c2VyIiwiZGVsZXRlX3VzZXIiLCJyZWFkX3VzZXIiLCJlZGl0X3VzZXIiXSwiaWF0IjoxNzQ2NzQ2NTcyLCJleHAiOjE3NDY3NTAxNzJ9._9HqlSRx6-KnqWKaDHGTroaGxHUdqS6ZqomVvzz5Cp0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userName\":\"fran\",\r\n    \"userEmail\":\"asdsad@gmail.com\",\r\n    \"userAge\": 26,\r\n    \"userprofileId\":1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create_profiles",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoiaGVjdG9yQGV4YW1wbGUuY29tIiwidXNlcnByb2ZpbGVJZCI6MSwicHJvZmlsZUNvZGUiOiJBRE1JTiIsInBlcm1pc3Npb25zIjpbImNyZWF0ZV91c2VyIiwiZGVsZXRlX3VzZXIiLCJyZWFkX3VzZXIiXSwiaWF0IjoxNzQ2NzM2MjgzLCJleHAiOjE3NDY3Mzk4ODN9.f4FL7B8k1EebxuNIwuiX-_rKxYHljC0KPlhCEBuJmqA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "    {\r\n        \"profileCode\": \"LOP\",\r\n        \"profileName\": \"lopoldro\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/profiles",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"profiles"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "update",
+					"item": [
+						{
+							"name": "update_users",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "    {\r\n        \"userName\": \"noe\",\r\n        \"userEmail\": \"rufo@example.com\",\r\n        \"userAge\": 28,\r\n        \"userprofileId\": 3\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/users/4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update_profiles",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoiaGVjdG9yQGV4YW1wbGUuY29tIiwidXNlcnByb2ZpbGVJZCI6MSwicHJvZmlsZUNvZGUiOiJBRE1JTiIsInBlcm1pc3Npb25zIjpbImNyZWF0ZV91c2VyIiwiZGVsZXRlX3VzZXIiLCJyZWFkX3VzZXIiXSwiaWF0IjoxNzQ2NzM2MjgzLCJleHAiOjE3NDY3Mzk4ODN9.f4FL7B8k1EebxuNIwuiX-_rKxYHljC0KPlhCEBuJmqA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\r\n        \"profileCode\": \"LOP\",\r\n        \"profileName\": \"lopo3534534554534ldro\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/profiles/4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"profiles",
+										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "delete",
+					"item": [
+						{
+							"name": "delete_users",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsImVtYWlsIjoicnVmb0BleGFtcGxlLmNvbSIsInVzZXJwcm9maWxlSWQiOjMsInByb2ZpbGVDb2RlIjoiU0FNUEkiLCJwZXJtaXNzaW9ucyI6WyJyZWFkX3VzZXIiXSwiaWF0IjoxNzQ2NzIwNDc1LCJleHAiOjE3NDY3MjQwNzV9.JWmjsHtRl-kcc-igYeWufajJYrFFNMqP-p1iUSznFc8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/users/4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"users",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete_profiles",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoiaGVjdG9yQGV4YW1wbGUuY29tIiwidXNlcnByb2ZpbGVJZCI6MSwicHJvZmlsZUNvZGUiOiJBRE1JTiIsInBlcm1pc3Npb25zIjpbImNyZWF0ZV91c2VyIiwiZGVsZXRlX3VzZXIiLCJyZWFkX3VzZXIiXSwiaWF0IjoxNzQ2NzM2MjgzLCJleHAiOjE3NDY3Mzk4ODN9.f4FL7B8k1EebxuNIwuiX-_rKxYHljC0KPlhCEBuJmqA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/profiles/4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"profiles",
+										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "generateTokenWithEmail",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userEmail\": \"hector@example.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
