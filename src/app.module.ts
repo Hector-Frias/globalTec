@@ -10,6 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './modules/usersProfiles/users/entities/user.entity';
 import { DataSource } from 'typeorm';
 import { AuthModule } from './auth/auth.module';
+import { GlobalTexts } from './data/constants/texts';
 
 @Module({
   imports: [
@@ -31,7 +32,7 @@ import { AuthModule } from './auth/auth.module';
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, GlobalTexts],
   exports: [],
 })
 export class AppModule {}
