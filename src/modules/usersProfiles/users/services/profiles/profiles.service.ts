@@ -92,7 +92,7 @@ export class ProfilesService {
         );
       }
       this.profile.update(id, updateProfileDto);
-      return { response: ' this.globalTexts.updateSuccessful' };
+      return { response: this.globalTexts.updateSuccessful };
     } catch (error) {}
   }
 
@@ -100,7 +100,13 @@ export class ProfilesService {
     await this.listProfileById(id);
     try {
       await this.profile.delete(id);
-      return { response: 'this.globalTexts.removalSuccessful' };
-    } catch (error) {}
+      return { response: this.globalTexts.removalSuccessful };
+    } catch (error) {
+      this.logger.error(this.globalTexts.anErrorOccurred, error.stack);
+      this.httpExceptionService.httpException(
+        error.message,
+        HttpStatus.NOT_FOUND,
+      );
+    }
   }
 }

@@ -25,6 +25,6 @@ export class User {
   userprofileId: number;
 
   @ManyToOne(() => Profile, (profile) => profile.users)
-  @JoinColumn({ name: 'userprofileId' }) // 👈 Asegura que TypeORM use la columna correcta
+  @JoinColumn({ name: 'userprofileId' })
   userProfile: Profile;
 }
